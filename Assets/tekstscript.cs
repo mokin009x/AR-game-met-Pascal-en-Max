@@ -7,16 +7,19 @@ public class tekstscript : MonoBehaviour {
 	string displayTekst = "A savage crime has taken place!";
 	string displayTekst2 = "The victim died by brutal force.";
 	string displayTekst3 = "You need to find out who the culprit is.";
-	string displayTekst4 = "The only lead we have is that the suspect is connected to cars, maybe this information will help you?";
-	string displayTekst5 = "Good luck!";
-	string displayTekst6 = "Detective Ben Dover";
+	string displayTekst4 = "The only lead we have is that the suspect is connected to cars ";
+    string displayTekst5 = "maybe this information will help you?";
+    string displayTekst6 = "Good luck!";
+	string displayTekst7 = "Detective Ben Dover";
 	public Text displayTB;
 	public Text displayTB2;
 	public Text displayTB3;
 	public Text displayTB4;
 	public Text displayTB5;
 	public Text displayTB6;
-	float timer;
+    public Text displayTB7;
+
+    float timer;
 	float timerAmount;
 	int amountToDisplay;
 	int tempAmountToDisplay;
@@ -26,9 +29,13 @@ public class tekstscript : MonoBehaviour {
 	int amountDisplayT4;
 	int amountDisplayT5;
 	int amountDisplayT6;
+    int amountDisplayT7;
+    public GameObject buttonStart;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+        buttonStart.SetActive(false);
 		timerAmount = 0.05f;
 		timer = timerAmount;
 		amountToDisplay = 0;
@@ -97,9 +104,27 @@ public class tekstscript : MonoBehaviour {
 			tempAmountToDisplay = 0;
 		}
 		displayTB6.text = displayTekst6.Substring (0, amountDisplayT6);
-		}
-	
-	void TimerCheck(){
+
+	    if (tempAmountToDisplay > displayTekst7.Length)
+	    {
+	        tempAmountToDisplay = tempAmountToDisplay - displayTekst7.Length;
+	        amountDisplayT7 = displayTekst7.Length;
+	    }
+	    else
+	    {
+	        amountDisplayT7 = tempAmountToDisplay;
+	        tempAmountToDisplay = 0;
+	    }
+	    displayTB7.text = displayTekst7.Substring(0, amountDisplayT7);
+
+	    if (amountToDisplay >= displayTekst.Length + displayTekst2.Length + displayTekst3.Length + displayTekst4.Length +
+	        displayTekst5.Length + displayTekst6.Length + displayTekst7.Length)
+	    {
+            buttonStart.SetActive(true);
+	    }
+    }
+
+    void TimerCheck(){
 		timer = timer - Time.deltaTime;
 		if (timer <= 0f) {
 			timer = timerAmount;
